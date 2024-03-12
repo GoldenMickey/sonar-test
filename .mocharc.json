@@ -1,0 +1,14 @@
+{
+    "extension": ["ts"],
+    "node-option": [
+        "experimental-specifier-resolution=node",
+        "loader=@istanbuljs/esm-loader-hook",
+        "loader=ts-node/esm",
+        "no-warnings"
+    ],
+    "spec": [
+        "./src/handler.spec.ts"
+    ],
+    "timeout": 30000,
+    "bail": true
+}

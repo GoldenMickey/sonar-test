@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <h1>Car makers</h1>
+        <select id="select"></select>
+
+        <h1>Autonomy: <p id="display"></p></h1>
+
+        <script>
+            (async () => {
+                const API_URL = 'https://ubomo3b5bnuvsb4mjx5552kir40sxrkj.lambda-url.ap-southeast-1.on.aws/';
+                const res = await axios.post(API_URL, "avg_autonomy", { headers: { 'Content-Type': 'application/json' } });
+
+                const avgAutonomyByCarMakers = res.data
+                const select = document.getElementById('select');
+                const display = document.getElementById('display');
+
+                select.addEventListener('change', (e) => display.innerHTML = avgAutonomyByCarMakers[e.target.value]);
+
+                for(const k of Object.keys(avgAutonomyByCarMakers)) {
+                    const o = document.createElement('option');
+                    o.value = k;
+                    o.innerText = k;
+                    select.appendChild(o);
+                }
+            })();
+        </script>
+    </body>
+</html>
