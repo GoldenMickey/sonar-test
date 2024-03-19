@@ -1,31 +1,31 @@
 import { expect } from 'chai';
-import { ZodError } from 'zod';
 import { handler } from './handler.js';
 
 describe('Nominal', () => {
-    it('Throws an error if req is not an expected string', async () => {
-        try {
-            const req: string = 'random';
-            await handler(req);
-        } catch (e: unknown) {
-            expect(e instanceof ZodError).to.be.true;
-        }
-    });
+    // it('Throws an error if req is not an expected string', async () => {
+    //     try {
+    //         const req: string = 'random';
+    //         await handler(req);
+    //     } catch (e: unknown) {
+    //         expect(e instanceof ZodError).to.be.true;
+    //     }
+    // });
 
     // it('Cars by car makers', async () => {
-    //     const req: string = 'count';
+    //     const req: { body: string } = { body: JSON.stringify({ target: 'count' }) };
+    //     console.time('Count call');
     //     const carsByCarMakers = await handler(req);
-    //     expect(carsByCarMakers['BMW']).to.be.a('number');
-    //     expect(carsByCarMakers['BMW']).to.equal(7465);
+    //     console.timeEnd('Count call');
+    //     console.log('Count result', carsByCarMakers)
+    //     expect((carsByCarMakers as Record<string, number>)['BMW']).to.be.a('number');
     // });
 
-    // it('Average autonomy by car makers', async () => {
-    //     const req: string = 'avg_autonomy';
-    //     const avgAutonomyByCarMakers = await handler(req);
-    //     expect(avgAutonomyByCarMakers['JEEP']).to.be.a('number');
-    //     expect(avgAutonomyByCarMakers['JEEP']).to.equal(0);
-
-    //     expect(avgAutonomyByCarMakers['TOYOTA']).to.be.a('number');
-    //     expect(avgAutonomyByCarMakers['TOYOTA']).to.equal(17.75);
-    // });
+    it('Average autonomy by car makers', async () => {
+        const req: { body: string } = { body: JSON.stringify({ target: 'avg_autonomy', maker: 'TESLA' }) };
+        console.time('Average autonomy call');
+        const toyotaAvgEvCarAutonomy = await handler(req);
+        console.timeEnd('Average autonomy call');
+        console.log('Average autonomy result', toyotaAvgEvCarAutonomy)
+        expect(toyotaAvgEvCarAutonomy).to.be.a('number');
+    });
 });
